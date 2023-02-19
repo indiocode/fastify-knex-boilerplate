@@ -1,0 +1,38 @@
+{
+  "name": "fastify-boilerplate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": "18.x",
+    "npm": "9.x"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^8.3.0",
+    "dotenv": "^16.0.3",
+    "fastify": "^4.13.0",
+    "knex": "^2.4.2",
+    "pg": "^8.9.0",
+    "sqlite3": "^5.1.4",
+    "zod": "^3.20.6"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.0",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "prettier": "^2.8.4",
+    "supertest": "^6.3.3",
+    "tsup": "^6.6.3",
+    "tsx": "^3.12.3",
+    "typescript": "*",
+    "vitest": "^0.28.5"
+  }
+}
