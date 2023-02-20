@@ -18,11 +18,9 @@ export async function usersRoutes(app: FastifyInstance): Promise<void> {
 		async (request) => {
 			const { sessionId } = request.cookies;
 
-			const transactions = await knex('users')
-				.where('session_id', sessionId)
-				.select();
+			const users = await knex('users').where('session_id', sessionId).select();
 
-			return { transactions };
+			return { users };
 		},
 	);
 
@@ -32,35 +30,32 @@ export async function usersRoutes(app: FastifyInstance): Promise<void> {
 			preHandler: [checkSessionIdExists],
 		},
 		async (request) => {
-			const getTransactionParamsSchema = z.object({
+			const getUsersParamsSchema = z.object({
 				id: z.string().uuid(),
 			});
 
-			const { id } = getTransactionParamsSchema.parse(request.params);
+			const { id } = getUsersParamsSchema.parse(request.params);
 
 			const { sessionId } = request.cookies;
 
-			const transaction = await knex('transactions')
+			const user = await knex('users')
 				.where({
 					id,
 					session_id: sessionId,
 				})
 				.first();
 
-			return { transaction };
+			return { user };
 		},
 	);
 
 	app.post('/', async (request, reply) => {
-		const createTransactionBodySchema = z.object({
-			title: z.string(),
-			amount: z.number(),
-			type: z.enum(['credit', 'debit']),
+		const createUserBodySchema = z.object({
+			name: z.string(),
+			email: z.string(),
 		});
 
-		const { title, amount, type } = createTransactionBodySchema.parse(
-			request.body,
-		);
+		const { name, email } = createUserBodySchema.parse(request.body);
 
 		let { sessionId } = request.cookies;
 
@@ -73,10 +68,10 @@ export async function usersRoutes(app: FastifyInstance): Promise<void> {
 			});
 		}
 
-		await knex('transactions').insert({
+		await knex('users').insert({
 			id: randomUUID(),
-			title,
-			amount: type === 'credit' ? amount : amount * -1,
+			name,
+			email,
 			session_id: sessionId,
 		});
 
